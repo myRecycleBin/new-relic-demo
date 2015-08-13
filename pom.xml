@@ -20,6 +20,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<metrics.version>3.1.0</metrics.version>
 	<!-- 	<java.version>1.8</java.version> -->
 	</properties>
 
@@ -34,6 +35,39 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+		<version>1.6.11</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.0</version>
+	</dependency>
+	
+	
+
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>1.6.11</version>
+	</dependency>
+		
+    <dependency>
+       <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-core</artifactId>
+        <version>${metrics.version}</version>
+    </dependency>
+
+
+    <dependency>
+    	<groupId>org.apache.commons</groupId>
+    	<artifactId>commons-lang3</artifactId>
+    	<version>3.3.2</version>
+    </dependency>
 	</dependencies>
 	
 	<build>
@@ -41,7 +75,44 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			<configuration>
+				<!-- <mainClass>demo.NewrelicDemoApplication</mainClass> -->
+			</configuration>
 			</plugin>
+	<!-- <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-dependency-plugin</artifactId>
+		<version>2.9</version>
+		<executions>
+			<execution>
+				<phase>prepare-package</phase>
+				<goals>
+					<goal>unpack-dependencies</goal>
+				</goals>
+				<configuration>
+					<includeArtifactIds>newrelic-agent</includeArtifactIds>
+					<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+				</configuration>
+			</execution>
+		</executions>
+	</plugin>
+
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>2.5</version>
+		<configuration>
+			<archive>
+				<manifestEntries>
+					<Premain-Class>com.newrelic.bootstrap.BootstrapAgent</Premain-Class>
+					<Can-Redefine-Classes>true</Can-Redefine-Classes>
+					<Can-Retransform-Classes>true</Can-Retransform-Classes>
+				</manifestEntries>
+			</archive>
+		</configuration>
+	</plugin> -->
+			
+			
 		</plugins>
 	</build>
 	
