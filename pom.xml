@@ -20,7 +20,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<metrics.version>3.1.0</metrics.version>
+		<metrics.version>3.1.2</metrics.version>
 	<!-- 	<java.version>1.8</java.version> -->
 	</properties>
 
@@ -39,7 +39,6 @@
 	<dependency>
 		<groupId>org.aspectj</groupId>
 		<artifactId>aspectjrt</artifactId>
-		<version>1.6.11</version>
 	</dependency>
 
 	<dependency>
@@ -53,13 +52,16 @@
 	<dependency>
 		<groupId>org.aspectj</groupId>
 		<artifactId>aspectjweaver</artifactId>
-		<version>1.6.11</version>
 	</dependency>
 		
     <dependency>
        <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
-        <version>${metrics.version}</version>
+    </dependency>
+
+    <dependency>
+       <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-graphite</artifactId>
     </dependency>
 
 

@@ -1,5 +1,6 @@
 package com.emc.demo.aspects;
 
+import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
 import org.aspectj.lang.JoinPoint;
@@ -12,13 +13,25 @@ import org.springframework.util.StopWatch;
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Histogram;
 import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.graphite.Graphite;
+import com.codahale.metrics.graphite.GraphiteReporter;
 
 @Aspect
 public class InBoundServiceMetricsAspect {
   MetricRegistry metricRegistry = new MetricRegistry();
+  
+  Graphite graphite = new Graphite(new InetSocketAddress("localhost", 2003));
+  GraphiteReporter reporter = GraphiteReporter.forRegistry(metricRegistry)
+                                                    .convertRatesTo(TimeUnit.MINUTES)
+                                                    .convertDurationsTo(TimeUnit.SECONDS)
+                                                    .filter(MetricFilter.ALL)
+                                                    .build(graphite);
+  /**
   ConsoleReporter reporter = ConsoleReporter.forRegistry(metricRegistry).convertRatesTo(TimeUnit.MINUTES)
       .convertDurationsTo(TimeUnit.SECONDS).build();
+  **/
 
   private final Meter requests = metricRegistry.meter("ff.inbound.missedcallcount");
   private final Meter initiateIVRContent = metricRegistry.meter("ff.inbound.missedcalls.contentcount");
