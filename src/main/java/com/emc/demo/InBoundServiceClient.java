@@ -12,7 +12,7 @@ public class InBoundServiceClient {
 
   private static Random rnd = new Random();
 
-  @Async("workExecutor")
+   @Async("workExecutor")
   public void simulateRegistrationMC() throws InterruptedException {
     while (true) {
       InBoundService boundService = new InBoundService();

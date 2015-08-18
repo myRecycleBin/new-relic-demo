@@ -22,7 +22,9 @@ import com.codahale.metrics.graphite.GraphiteReporter;
 @Aspect
 public class InBoundServiceMetricsAspect {
   MetricRegistry metricRegistry = new MetricRegistry();
-  Graphite graphite = new Graphite(new InetSocketAddress("localhost", 2003));
+  //Graphite graphite = new Graphite(new InetSocketAddress("localhost", 2003));
+  Graphite graphite = new Graphite(new InetSocketAddress("192.168.5.20", 2023));
+  
   GraphiteReporter reporter = GraphiteReporter.forRegistry(metricRegistry).convertRatesTo(TimeUnit.MINUTES)
       .convertDurationsTo(TimeUnit.SECONDS).filter(MetricFilter.ALL).build(graphite);
 
@@ -49,13 +51,14 @@ public class InBoundServiceMetricsAspect {
           Counter c = metricRegistry.counter("ff.inbound.missedcall.counter");
           long count = c.getCount();
           c.dec(count);
+          System.out.println("InBoundServiceMetricsAspect.enclosing_method()..count >>" + count);
           return (int) count;
         }
       });
 
   public InBoundServiceMetricsAspect() {
     reporter.start(30, TimeUnit.SECONDS);
-    aggReporter.start(5, TimeUnit.MINUTES);
+    aggReporter.start(1, TimeUnit.MINUTES);
   }
 
   @After("execution(* com.emc.demo.InBoundService.handleInboundMC(..))")
